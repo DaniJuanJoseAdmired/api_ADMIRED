@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Controllers\BaseController; 
+use App\Controllers\BaseController;
 use App\Models\UsuariosModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
@@ -10,7 +10,6 @@ class Usuarios extends BaseController
 {
     public function create()
     {
-        $dataResult = [];
         $usuarioModel = new UsuariosModel();
 
         $data = [
@@ -28,14 +27,139 @@ class Usuarios extends BaseController
         ];
 
         if ($usuarioModel->insert($data)) {
-            $dataResult["data"] = $data;
-            $dataResult["messaje"] = 'Usuario Creado';
-            $dataResult["response"] = ResponseInterface::HTTP_OK;
+            $dataResult = [
+                "data" => $data,
+                "message" => 'Usuario Creado',
+                "response" => ResponseInterface::HTTP_OK,
+            ];
         } else {
-            $dataResult["data"] = '';
-            $dataResult["messaje"] = 'Error al crear usuario';
-            $dataResult["tresponse"] = ResponseInterface::HTTP_CONFLICT;
+            $dataResult = [
+                "data" => '',
+                "message" => 'Error al crear usuario',
+                "response" => ResponseInterface::HTTP_CONFLICT,
+            ];
         }
-        return json_encode($dataResult);
+
+        return $this->response->setJSON($dataResult);
     }
+
+    public function index()
+{
+    $usuarioModel = new UsuariosModel();
+    $usuarios = $usuarioModel->findAll();
+
+    $dataResult = [
+        "data" => $usuarios,
+        "message" => 'Lista de usuarios',
+        "response" => ResponseInterface::HTTP_OK,
+    ];
+
+    return $this->response->setJSON($dataResult);
+}
+
+
+
+    public function show($id)
+    {
+        $usuarioModel = new UsuariosModel();
+        $usuario = $usuarioModel->find($id);
+
+        if ($usuario) {
+            $dataResult = [
+                "data" => $usuario,
+                "message" => 'Usuario Encontrado',
+                "response" => ResponseInterface::HTTP_OK,
+            ];
+        } else {
+            $dataResult = [
+                "data" => '',
+                "message" => 'Usuario no encontrado',
+                "response" => ResponseInterface::HTTP_NOT_FOUND,
+            ];
+        }
+
+        return $this->response->setJSON($dataResult);
+    }
+
+    public function update($id)
+{
+    $usuarioModel = new UsuariosModel();
+
+    // Obtener el usuario actual
+    $usuario = $usuarioModel->find($id);
+
+    // Verificar si el usuario existe
+    if ($usuario) {
+        // Obtener los datos del formulario
+        $data = [
+            'NOMBRE' => $this->request->getVar('NOMBRE') ?? $usuario['NOMBRE'],
+            'APELLIDO' => $this->request->getVar('APELLIDO') ?? $usuario['APELLIDO'],
+            'EMAIL' => $this->request->getVar('EMAIL') ?? $usuario['EMAIL'],
+            'CONTRASENA' => $this->request->getVar('CONTRASENA') ? password_hash($this->request->getVar('CONTRASENA'), PASSWORD_DEFAULT) : $usuario['CONTRASENA'],
+            'TELEFONO' => $this->request->getVar('TELEFONO') ?? $usuario['TELEFONO'],
+            'TORRE' => $this->request->getVar('TORRE') ?? $usuario['TORRE'],
+            'APTO' => $this->request->getVar('APTO') ?? $usuario['APTO'],
+        ];
+
+        // Actualizar el usuario en la base de datos
+        if ($usuarioModel->update($id, $data)) {
+            $dataResult = [
+                "data" => $data,
+                "message" => 'Usuario actualizado',
+                "response" => ResponseInterface::HTTP_OK,
+            ];
+        } else {
+            $dataResult = [
+                "data" => '',
+                "message" => 'Error al actualizar usuario',
+                "response" => ResponseInterface::HTTP_INTERNAL_SERVER_ERROR,
+            ];
+        }
+    } else {
+        $dataResult = [
+            "data" => '',
+            "message" => 'Usuario no encontrado',
+            "response" => ResponseInterface::HTTP_NOT_FOUND,
+        ];
+    }
+
+    return $this->response->setJSON($dataResult);
+}
+
+public function delete($id)
+{
+    $usuarioModel = new UsuariosModel();
+
+    // Obtener el usuario actual
+    $usuario = $usuarioModel->find($id);
+
+    // Verificar si el usuario existe
+    if ($usuario) {
+        // Eliminar el usuario de la base de datos
+        if ($usuarioModel->delete($id)) {
+            $dataResult = [
+                "data" => $usuario,
+                "message" => 'Usuario eliminado correctamente',
+                "response" => ResponseInterface::HTTP_OK,
+            ];
+        } else {
+            $dataResult = [
+                "data" => '',
+                "message" => 'Error al eliminar usuario',
+                "response" => ResponseInterface::HTTP_INTERNAL_SERVER_ERROR,
+            ];
+        }
+    } else {
+        $dataResult = [
+            "data" => '',
+            "message" => 'Usuario no encontrado',
+            "response" => ResponseInterface::HTTP_NOT_FOUND,
+        ];
+    }
+
+    return $this->response->setJSON($dataResult);
+}
+
+
+
 }
