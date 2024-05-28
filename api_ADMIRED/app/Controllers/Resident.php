@@ -37,7 +37,7 @@ class Resident extends BaseController
 
         return $this->response->setJSON($dataResult);
     }
-    
+
     public function index()
 {
     $residentModel = new ResidentModel();
@@ -45,7 +45,7 @@ class Resident extends BaseController
 
     $dataResult = [
         "data" => $residentes,
-        "message" => 'Lista de usuarios',
+        "message" => 'Lista de residentes',
         "response" => ResponseInterface::HTTP_OK,
     ];
 
@@ -83,10 +83,10 @@ class Resident extends BaseController
 
     if ($residentes) {
         $data = [
-            'NO_TORRE' => $this->request->getVar('NO_TORRE') ?? $usuario['NO_TORRE'],
-            'NO_APARTAMENTO' => $this->request->getVar('NO_APARTAMENTO') ?? $usuario['NO_APARTAMENTO'],
-            'NOMBRE_PROPIETARIO' => $this->request->getVar('NOMBRE_PROPIETARIO') ?? $usuario['NOMBRE_PROPIETARIO'],
-            'ESTADO' => $this->request->getVar('ESTADO') ?? $usuario['ESTADO'],
+            'NO_TORRE' => $this->request->getVar('NO_TORRE') ?? $residentes['NO_TORRE'],
+            'NO_APARTAMENTO' => $this->request->getVar('NO_APARTAMENTO') ?? $residentes['NO_APARTAMENTO'],
+            'NOMBRE_PROPIETARIO' => $this->request->getVar('NOMBRE_PROPIETARIO') ?? $residentes['NOMBRE_PROPIETARIO'],
+            'ESTADO' => $this->request->getVar('ESTADO') ?? $residentes['ESTADO'],
         ];
 
         if ($residentModel->update($id, $data)) {

@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class ResidentModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'resident';
+    protected $table            = 'residentes';
     protected $primaryKey       = 'ID';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
@@ -16,11 +16,11 @@ class ResidentModel extends Model
     protected $allowedFields    = ['NO_TORRE', 'NO_APARTAMENTO', 'NOMBRE_PROPIETARIO', 'ESTADO',];
 
     // Dates
-    protected $useTimestamps    = true;
-    protected $dateFormat       = 'datetime';
-    protected $createdField     = 'created_at';
-    protected $updatedField     = 'updated_at';
-    protected $deletedField     = 'deleted_at';
+    // protected $useTimestamps    = true;
+    // protected $dateFormat       = 'datetime';
+    // protected $createdField     = 'created_at';
+    // protected $updatedField     = 'updated_at';
+    // protected $deletedField     = 'deleted_at';
 
 
     // Validation
