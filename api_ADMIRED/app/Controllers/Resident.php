@@ -21,7 +21,7 @@ class Resident extends BaseController
             'ESTADO' => $this->request->getPost('ESTADO'),
         ];
         
-        if ($ResidentModel->insert($data)) {
+        if ($residentModel->insert($data)) {
             $dataResult = [
                 "data" => $data,
                 "message" => 'residente ha sido Creado',
@@ -46,8 +46,8 @@ class Resident extends BaseController
 
     public function show($id)
     {
-        $ResidentModel = new ResidentModel();
-        $residentes = $ResidentModel->find($id);
+        $residentModel = new ResidentModel();
+        $residentes = $residentModel->find($id);
 
         if ($residentes) {
             $dataResult = [
@@ -68,10 +68,10 @@ class Resident extends BaseController
 
     public function update($id)
     {
-    $ResidentModel = new ResidentModel();
+    $residentModel = new ResidentModel();
 
    
-    $usuario = $usuarioModel->find($id);
+    $residentes = $residentModel->find($id);
 
     if ($residentes) {
         $data = [
@@ -81,7 +81,7 @@ class Resident extends BaseController
             'ESTADO' => $this->request->getVar('ESTADO') ?? $usuario['ESTADO'],
         ];
 
-        if ($ResidentModel->update($id, $data)) {
+        if ($residentModel->update($id, $data)) {
             $dataResult = [
                 "data" => $data,
                 "message" => 'Residente ha sido actualizado',
@@ -107,12 +107,12 @@ class Resident extends BaseController
 
 public function delete($id)
 {
-    $ResidentModel = new ResidentModel();
+    $residentModel = new ResidentModel();
 
-    $usuario = $ResidentModel->find($id);
+    $residentes = $residentModel->find($id);
 
-    if ($usuario) {
-        if ($ResidentModel->delete($id)) {
+    if ($residentes) {
+        if ($residentModel->delete($id)) {
             $dataResult = [
                 "data" => $residentes,
                 "message" => 'Residente ha sido eliminado correctamente',
