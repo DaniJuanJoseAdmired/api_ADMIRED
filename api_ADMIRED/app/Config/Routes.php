@@ -21,5 +21,10 @@ $routes->group("api", function ($routes) {
     $routes->get("pqr", "Pqr::index");
     $routes->put("pqr/update/(:num)", "Pqr::update/$1");
     $routes->delete("pqr/delete/(:num)", "Pqr::delete/$1");
+    $routes->post("resident/create", "Resident::create");
+    $routes->get("resident/show/(:num)", "Resident::show/$1");
+    $routes->get("resident", "Resident::index");
+    $routes->put("resident/update/(:num)", "Resident::update/$1");
+    $routes->delete("resident/delete/(:num)", "Resident::delete/$1");
 });
 
