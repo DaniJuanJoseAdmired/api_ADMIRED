@@ -24,13 +24,13 @@ class Resident extends BaseController
         if ($ResidentModel->insert($data)) {
             $dataResult = [
                 "data" => $data,
-                "message" => 'residente Creado',
+                "message" => 'residente ha sido Creado',
                 "response" => ResponseInterface::HTTP_OK,
             ];
         } else {
             $dataResult = [
                 "data" => '',
-                "message" => 'Error al crear residente',
+                "message" => 'Error al crear un residente',
                 "response" => ResponseInterface::HTTP_CONFLICT,
             ];
         }
@@ -52,13 +52,13 @@ class Resident extends BaseController
         if ($residentes) {
             $dataResult = [
                 "data" => $residentes,
-                "message" => 'Residente Encontrado',
+                "message" => 'Residente ha sido Encontrado',
                 "response" => ResponseInterface::HTTP_OK,
             ];
         } else {
             $dataResult = [
                 "data" => '',
-                "message" => 'Residente no encontrado',
+                "message" => 'Residente no ha sido encontrado',
                 "response" => ResponseInterface::HTTP_NOT_FOUND,
             ];
         }
@@ -84,20 +84,20 @@ class Resident extends BaseController
         if ($ResidentModel->update($id, $data)) {
             $dataResult = [
                 "data" => $data,
-                "message" => 'Residente actualizado',
+                "message" => 'Residente ha sido actualizado',
                 "response" => ResponseInterface::HTTP_OK,
             ];
         } else {
             $dataResult = [
                 "data" => '',
-                "message" => 'Error al actualizar Residente',
+                "message" => 'Error al actualizar al Residente',
                 "response" => ResponseInterface::HTTP_INTERNAL_SERVER_ERROR,
             ];
         }
     } else {
         $dataResult = [
             "data" => '',
-            "message" => 'Residente no encontrado',
+            "message" => 'Residente no ha sido encontrado',
             "response" => ResponseInterface::HTTP_NOT_FOUND,
         ];
     }
@@ -115,13 +115,13 @@ public function delete($id)
         if ($ResidentModel->delete($id)) {
             $dataResult = [
                 "data" => $residentes,
-                "message" => 'Residente eliminado correctamente',
+                "message" => 'Residente ha sido eliminado correctamente',
                 "response" => ResponseInterface::HTTP_OK,
             ];
         } else {
             $dataResult = [
                 "data" => '',
-                "message" => 'Error al eliminar Residente',
+                "message" => 'Error al eliminar al Residente',
                 "response" => ResponseInterface::HTTP_INTERNAL_SERVER_ERROR,
             ];
         }
