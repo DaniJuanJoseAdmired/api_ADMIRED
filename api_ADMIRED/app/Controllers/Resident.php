@@ -37,12 +37,20 @@ class Resident extends BaseController
 
         return $this->response->setJSON($dataResult);
     }
-
+    
     public function index()
-    {
-        $residentes = new ResidentModel;
-    return $this->respond(['Resident' => $residentes->findAll()], 200);
-    }
+{
+    $residentModel = new ResidentModel();
+    $residentes = $residentModel->findAll();
+
+    $dataResult = [
+        "data" => $residentes,
+        "message" => 'Lista de usuarios',
+        "response" => ResponseInterface::HTTP_OK,
+    ];
+
+    return $this->response->setJSON($dataResult);
+}
 
     public function show($id)
     {
